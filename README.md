@@ -3,6 +3,7 @@
 This is repository is a living wiki (when I forget) and a humble attempt of [IaC](https://docs.microsoft.com/en-us/devops/deliver/what-is-infrastructure-as-code) for my experimental homelab.
 
 - [homelab](#homelab)
+- [Resources](#resources)
 - [Devices](#devices)
   - [Intel NUC (NUC8i7BEH)](#intel-nuc-nuc8i7beh)
     - [Hardware](#hardware)
@@ -10,8 +11,13 @@ This is repository is a living wiki (when I forget) and a humble attempt of [IaC
   - [PowerEdge r720xd](#poweredge-r720xd)
     - [Hardware](#hardware-1)
     - [Software](#software-1)
-- [IaC](#iac)
-  - [Ansible](#ansible)
+
+# Resources
+
+Some great people made some great guides that I used:
+- https://norocketscience.at/author/thomas/
+- https://techno-tim.github.io/
+- https://austinsnerdythings.com/2021/09/01/how-to-deploy-vms-in-proxmox-with-terraform/
 
 # Devices
 
@@ -80,16 +86,3 @@ This is repository is a living wiki (when I forget) and a humble attempt of [IaC
     - 1 CPU, 1GB ram, 6GB disk
   - `pivpn`: Ubuntu, [pivpn](https://pivpn.io/)
     - 1 CPU, 1GB ram, 6GB disk
-
-# IaC
-
-## Ansible
-
-Still a big WIP, attempting to have a dynamic inventory to pull all Proxmox VMs
-and containers.
-
-Playbooks to attempt:
-- [ ] general package update
-- [ ] unattended upgrades
-- [ ] install common utils (vim, curl, etc)
-- [ ] sync ssh keys from github

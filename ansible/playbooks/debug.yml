@@ -1,0 +1,8 @@
+- name: dump some debug info
+  hosts:
+    - baremetal
+    - proxmox_all_running
+  tasks:
+    - name: dist
+      debug:
+        msg: "{{ ansible_distribution }}: {{ ansible_distribution_version }}"

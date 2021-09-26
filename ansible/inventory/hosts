@@ -1,0 +1,10 @@
+[baremetal]
+nuc
+
+[baremetal:vars]
+ansible_user=rob
+
+[proxmox_all_lxc]
+
+[proxmox_all_lxc:vars]
+ansible_user=root

@@ -1,47 +1,50 @@
 # homelab
 
+This is repository is a living wiki (when I forget) and a humble attempt of [IaC](https://docs.microsoft.com/en-us/devops/deliver/what-is-infrastructure-as-code) for my experimental homelab.
 
 - [homelab](#homelab)
-- [Intel NUC (NUC8i7BEH)](#intel-nuc-nuc8i7beh)
-  - [Hardware](#hardware)
-  - [Software](#software)
-- [PowerEdge r720xd](#poweredge-r720xd)
-  - [Hardware](#hardware-1)
-  - [Software](#software-1)
+- [Devices](#devices)
+  - [Intel NUC (NUC8i7BEH)](#intel-nuc-nuc8i7beh)
+    - [Hardware](#hardware)
+    - [Software](#software)
+  - [PowerEdge r720xd](#poweredge-r720xd)
+    - [Hardware](#hardware-1)
+    - [Software](#software-1)
+- [IaC](#iac)
+  - [Ansible](#ansible)
 
-# Intel NUC (NUC8i7BEH)
+# Devices
 
-- Static IP: `192.168.1.69`
+## Intel NUC (NUC8i7BEH)
 
-## Hardware
+- Static IP: `192.168.1.200`
+
+### Hardware
 
 - **CPU:** Intel i7-8559U (8) @ 4.50GHz
 - **Memory:** Crucial 16GB DDR4-2666
 - **Storage:**
-  - Crucial P1 m.2 1TB SSD
+  - Samsung 500GB SSD
     - Operating system & general purpose storage
   - Seagate IronWolf 4TB HDD (via Sabrant External Dock)
     - Plex Media & Shared Network Drive
-  - OCZ Agility 3 128GB SSD
-    - Not really used, just filling up space
 
-## Software
+### Software
 
-- **OS:** Fedora Server 33
+- **OS:** Ubuntu Server 20.04
 - **Containers (Docker):**
-  - Deluge BitTorrent Client
-  - 2 x Minecraft Servers
-  - ? x Static nginx sites
-- **Systemd Units:**
   - Plex
+  - Jellyfin
+  - Deluge BitTorrent Client
+- **Systemd Units:**
   - Samba
 
-# PowerEdge r720xd
+## PowerEdge r720xd
 
-- iDRAC Static IP: `192.168.1.101`
-- Proxmox Static IP: `192.168.1.200`
+- iDRAC Static IP: `192.168.1.100`
+- Proxmox Static IP: `192.168.1.101`
 
-## Hardware
+### Hardware
 
 - **CPU:** 2 x Intel Xeon (16) @ 2.50GHz
 - **Memory:** 16 x Kingston 8GB DDR3-1600
@@ -57,12 +60,12 @@
       - (Double parity) ~7x read speed, tolerant of 2 drive failures
       - For guest VM storage
 
-## Software
+### Software
 - **OS:** Debian 11
 - **Virtualization:** KVM (Proxmox)
-  - `landscape`: Ubuntu, canonical landscape for linux vm patching
+  <!-- - `landscape`: Ubuntu, canonical landscape for linux vm patching
     - 8 (shared) cores, 16GB ram, 24GB disk
-  - `game-servers`: Windows 10, used for game servers
+  - `game-servers`: Windows 10, used for various game servers
     - 16 (shared) cores, 16GB ram, 128GB disk
   - `networking`: Ubuntu, (DDNS, Nginx Proxy Manager, Tailscale)
     - 8 (shared) cores, 16GB ram, 128GB disk
@@ -71,4 +74,22 @@
   - `gh-runner-1`: Ubuntu, GitHub Actions self-hosted runner
     - 4 (shared) cores, 12GB ram, 24GB disk
   - `gh-runner-2`: Ubuntu, GitHub Actions self-hosted runner
-    - 4 (shared) cores, 12GB ram, 24GB disk
+    - 4 (shared) cores, 12GB ram, 24GB disk -->
+- **Containers:** LXC
+  - `pihole`: Ubuntu, [pihole](https://pi-hole.net/)
+    - 1 CPU, 1GB ram, 6GB disk
+  - `pivpn`: Ubuntu, [pivpn](https://pivpn.io/)
+    - 1 CPU, 1GB ram, 6GB disk
+
+# IaC
+
+## Ansible
+
+Still a big WIP, attempting to have a dynamic inventory to pull all Proxmox VMs
+and containers.
+
+Playbooks to attempt:
+- [ ] general package update
+- [ ] unattended upgrades
+- [ ] install common utils (vim, curl, etc)
+- [ ] sync ssh keys from github

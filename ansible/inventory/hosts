@@ -1,7 +1,10 @@
 [baremetal]
-nuc
+nuc ansible_user=rob
+r720-pve ansible_user=root
 
-[baremetal:vars]
+[proxmox_r720_pve_qemu]
+
+[proxmox_r720_pve_qemu:vars]
 ansible_user=rob
 
 [proxmox_all_lxc]

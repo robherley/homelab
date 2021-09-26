@@ -18,6 +18,7 @@ Some great people made some great guides that I used:
 - https://norocketscience.at/author/thomas/
 - https://techno-tim.github.io/
 - https://austinsnerdythings.com/2021/09/01/how-to-deploy-vms-in-proxmox-with-terraform/
+- https://gist.github.com/KrustyHack/fa39e509b5736703fb4a3d664157323f
 
 # Devices
 

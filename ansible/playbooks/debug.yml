@@ -3,6 +3,8 @@
     - baremetal
     - proxmox_all_running
   tasks:
-    - name: dist
+    - name: print ansible distribution info
       debug:
-        msg: "{{ ansible_distribution }}: {{ ansible_distribution_version }}"
+        msg: "{{ ansible_distribution }} ({{ ansible_distribution_version }}) | {{ ansible_os_family }}-based"
+    - name: print ipv4
+      debug: var=ansible_all_ipv4_addresses

@@ -1,0 +1,34 @@
+- name: post-provision
+  hosts:
+    - baremetal
+    - proxmox_all_running_linux
+  tasks:
+    - name: add keys from github
+      authorized_key:
+        key: https://github.com/robherley.keys
+        user: "{{ ansible_user }}"
+    - name: disable password login
+      lineinfile: dest=/etc/ssh/sshd_config regexp="^PasswordAuthentication" line="PasswordAuthentication no" state=present
+      notify:
+        - restart sshd
+    - name: update pkg cache and upgrade
+      when: ansible_os_family == "Debian"
+      become: yes
+      apt:
+        update_cache: yes
+        upgrade: yes
+    - name: install packages
+      when: ansible_os_family == "Debian"
+      become: yes
+      apt:
+        name: vim, curl, wget, unattended-upgrades
+    - name: install qemu-guest-agent
+      when: proxmox_vmtype is defined and proxmox_vmtype == "qemu"
+      become: yes
+      apt:
+        name: qemu-guest-agent
+  handlers:
+    - name: restart sshd
+      service:
+        name: sshd
+        state: restarted

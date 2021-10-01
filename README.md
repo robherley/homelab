@@ -24,8 +24,6 @@ Some great people made some great guides that I used:
 
 ## Intel NUC (NUC8i7BEH)
 
-- Static IP: `192.168.1.200`
-
 ### Hardware
 
 - **CPU:** Intel i7-8559U (8) @ 4.50GHz
@@ -48,9 +46,6 @@ Some great people made some great guides that I used:
 
 ## PowerEdge r720xd
 
-- iDRAC Static IP: `192.168.1.100`
-- Proxmox Static IP: `192.168.1.101`
-
 ### Hardware
 
 - **CPU:** 2 x Intel Xeon (16) @ 2.50GHz
@@ -70,20 +65,13 @@ Some great people made some great guides that I used:
 ### Software
 - **OS:** Debian 11
 - **Virtualization:** KVM (Proxmox)
-  <!-- - `landscape`: Ubuntu, canonical landscape for linux vm patching
-    - 8 (shared) cores, 16GB ram, 24GB disk
-  - `game-servers`: Windows 10, used for various game servers
-    - 16 (shared) cores, 16GB ram, 128GB disk
-  - `networking`: Ubuntu, (DDNS, Nginx Proxy Manager, Tailscale)
-    - 8 (shared) cores, 16GB ram, 128GB disk
-  - `k3s`: Ubuntu, k3s cluster
-    - 16 (shared) cores, 16GB ram, 128GB disk
-  - `gh-runner-1`: Ubuntu, GitHub Actions self-hosted runner
-    - 4 (shared) cores, 12GB ram, 24GB disk
-  - `gh-runner-2`: Ubuntu, GitHub Actions self-hosted runner
-    - 4 (shared) cores, 12GB ram, 24GB disk -->
+  - `proxy`: Ubuntu, ([DDNS](https://github.com/timothymiller/cloudflare-ddns), [Nginx Proxy Manager](https://nginxproxymanager.com/))
 - **Containers:** LXC
   - `pihole`: Ubuntu, [pihole](https://pi-hole.net/)
     - 1 CPU, 1GB ram, 6GB disk
   - `pivpn`: Ubuntu, [pivpn](https://pivpn.io/)
     - 1 CPU, 1GB ram, 6GB disk
+  - `gh-runner-1`: Ubuntu, GitHub Actions self-hosted runner
+    - 4 (shared) cores, 12GB ram, 16GB disk
+  - `gh-runner-2`: Ubuntu, GitHub Actions self-hosted runner
+    - 4 (shared) cores, 12GB ram, 16GB disk

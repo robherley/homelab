@@ -1,0 +1,37 @@
+- name: add sudoers with ssh keys
+  hosts:
+    - proxmox
+    - pi
+  become: yes
+  gather_facts: no
+  vars:
+    users:
+      - name: rob
+        github: robherley
+        password: $6$himalayan$E.K7G4g7NoIW69HLpmK1QDU1JMN4aaSYPOOGX1SwoSl.uqr64JruCEeDH0nLi9CxJR1/2HGTnTDVKfCC2ubub1
+  tasks:
+    - name: add sudo
+      apt:
+        name: sudo
+        state: present
+    - name: add user
+      user:
+        name: "{{ item.name }}"
+        password: "{{ item.password }}"
+        shell: /bin/bash
+      with_items: "{{ users }}"
+    - name: enable passwordless sudo
+      lineinfile:
+        dest: /etc/sudoers.d/99-ansible-users
+        state: present
+        mode: 0440
+        create: yes
+        regexp: '^{{ item.name }}'
+        line: '{{ item.name }} ALL=(ALL) NOPASSWD: ALL'
+        validate: 'visudo -cf %s'
+      with_items: "{{ users }}"
+    - name: add keys from github
+      authorized_key:
+        key: "https://github.com/{{ item.github }}.keys"
+        user: "{{ item.name }}"
+      with_items: "{{ users }}"

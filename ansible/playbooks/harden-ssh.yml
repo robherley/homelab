@@ -1,0 +1,36 @@
+- name: harden ssh connection
+  become: yes
+  hosts:
+    - proxmox
+    - pi
+  tasks:
+    - name: assert non-root user
+      assert:
+        that:
+          - ansible_user != "root"
+        fail_msg: "must run this playbook as non-root to ensure SSH works"
+        success_msg: "successfully connected as non-root!"
+    - name: disable password login
+      lineinfile:
+        dest: /etc/ssh/sshd_config
+        state: present
+        regexp: '^PasswordAuthentication'
+        line: 'PasswordAuthentication no'
+        validate: 'sshd -t -f %s'
+      notify:
+        - restart-sshd
+    - name: disable root login
+      when: "'proxmox' not in group_names"
+      lineinfile:
+        dest: /etc/ssh/sshd_config
+        state: present
+        regexp: '^PermitRootLogin'
+        line: 'PermitRootLogin no'
+        validate: 'sshd -t -f %s'
+      notify:
+        - restart-sshd
+  handlers:
+    - name: restart-sshd
+      service:
+        name: sshd
+        state: restarted

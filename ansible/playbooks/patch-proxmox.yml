@@ -1,0 +1,22 @@
+- name: patch-proxmox
+  become: yes
+  hosts:
+    - proxmox
+  tasks:
+    - name: add pve-no-subscription repository
+      apt_repository:
+        repo: deb http://download.proxmox.com/debian/pve {{ ansible_distribution_release }} pve-no-subscription
+        state: present
+        update_cache: no
+    - name: remove pve-enterprise repository
+      apt_repository:
+        repo: deb https://enterprise.proxmox.com/debian/pve {{ ansible_distribution_release }} pve-enterprise
+        state: absent
+        update_cache: no
+    - name: update pkg cache and dist-upgrade
+      apt:
+        update_cache: yes
+        upgrade: 'dist'
+    - name: install additional packages
+      apt:
+        name: corosync-qdevice, vim, curl, wget, unattended-upgrades

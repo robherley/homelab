@@ -1,7 +1,6 @@
 - name: dump some debug info
   hosts:
-    - baremetal
-    - proxmox_all_running
+    - all
   tasks:
     - name: print ansible distribution info
       debug:

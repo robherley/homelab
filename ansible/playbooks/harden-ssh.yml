@@ -3,6 +3,7 @@
   hosts:
     - proxmox
     - pi
+    - proxmox_all_running
   tasks:
     - name: assert non-root user
       assert:

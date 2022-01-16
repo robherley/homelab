@@ -1,5 +1,5 @@
 variable "pm_api_url" {
-  default = "https://r720-pve.lab.reb.gg:8006/api2/json"
+  default = "https://192.168.1.100:8006/api2/json"
 }
 
 variable "pm_user" {
@@ -10,6 +10,10 @@ variable "pm_password" {
   sensitive = true
 }
 
-variable "ssh_key" {
-  default = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKrOJrpYRgEiuGuoNhyPbeEldjIRkwRG/fjjySPUks/y robherley13@gmail.com"
+variable "vm_template_name" {
+  default = "ubuntu-cloudinit-template"
+}
+
+variable "lxc_template_name" {
+  default = "ubuntu-ct-template"
 }

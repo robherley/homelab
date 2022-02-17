@@ -2,6 +2,7 @@
   hosts:
     - proxmox
     - pi
+    - proxmox_all_running
   become: yes
   gather_facts: no
   vars:

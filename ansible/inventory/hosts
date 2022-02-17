@@ -1,6 +1,6 @@
 [proxmox]
-r720 ansible_host=192.168.1.100
-nuc ansible_host=192.168.1.200
+r720 ansible_host=10.0.0.100
+nuc ansible_host=10.0.0.200
 
 [pi]
-piprimary ansible_host=192.168.1.254 ansible_python_interpreter=auto_silent
+piprimary ansible_host=10.0.0.254 ansible_python_interpreter=auto_silent

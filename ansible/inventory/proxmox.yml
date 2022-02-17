@@ -1,7 +1,7 @@
 # https://docs.ansible.com/ansible/latest/collections/community/general/proxmox_inventory.html
 plugin: community.general.proxmox
 
-url: https://192.168.1.100:8006
+url: https://10.0.0.100:8006
 user: ansible@pve
 password: !vault |
   $ANSIBLE_VAULT;1.1;AES256

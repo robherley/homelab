@@ -1,5 +1,5 @@
 variable "pm_api_url" {
-  default = "https://10.0.0.100:8006/api2/json"
+  default = "https://r720.lab.reb.gg:8006/api2/json"
 }
 
 variable "pm_user" {

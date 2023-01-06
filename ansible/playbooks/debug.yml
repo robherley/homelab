@@ -1,9 +1,14 @@
 - name: dump some debug info
   hosts:
-    - all
+    - proxmox
+    - pi
+    - proxmox_all_running
+  gather_facts: true
   tasks:
     - name: print ansible distribution info
       debug:
         msg: "{{ ansible_distribution }} ({{ ansible_distribution_version }}) | {{ ansible_os_family }}-based"
     - name: print ipv4
       debug: var=ansible_all_ipv4_addresses
+    - name: print stat
+      debug: var=proxmox_running

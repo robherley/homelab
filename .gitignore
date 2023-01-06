@@ -1,4 +1,6 @@
+tmp/
 .vault_password
+.ansible-facts
 *.env
 
 # Created by https://www.toptal.com/developers/gitignore/api/terraform,ansible,visualstudiocode,macos

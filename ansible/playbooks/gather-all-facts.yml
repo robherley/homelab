@@ -1,0 +1,12 @@
+- name: dump some debug info
+  hosts:
+    - proxmox
+    - pi
+    - proxmox_all_running
+  gather_facts: true
+  tasks:
+    - setup:
+    - copy:
+        content: "{{ hostvars | to_nice_json }}"
+        dest: ./tmp/hostvars.json
+        once: true

@@ -1,7 +1,7 @@
 # https://docs.ansible.com/ansible/latest/collections/community/general/proxmox_inventory.html
 plugin: community.general.proxmox
 
-url: https://10.0.0.100:8006
+url: https://r720.lab.reb.gg:8006
 user: ansible@pve
 password: !vault |
   $ANSIBLE_VAULT;1.1;AES256
@@ -11,6 +11,6 @@ password: !vault |
   6637663436306537650a633566343734313230343632336130623435383931333732376538383665
   64393730313335343035333966636133306639633439393434363130366466303635
 
-validate_certs: no
+strict: yes
 want_facts: yes
 want_proxmox_nodes_ansible_host: no

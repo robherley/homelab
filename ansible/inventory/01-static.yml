@@ -1,0 +1,12 @@
+all:
+  children:
+    proxmox:
+      hosts:
+        r720:
+    pi:
+      hosts:
+        pegboard:
+          ansible_host: 10.0.0.196
+        piprimary:
+          ansible_host: 10.0.0.196
+

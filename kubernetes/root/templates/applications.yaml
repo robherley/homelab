@@ -1,0 +1,25 @@
+{{- range $_, $app := $.Values.apps }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ $app.name }}
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  project: default
+  source:
+    repoURL: {{ $.Values.repo }}
+    targetRevision: HEAD
+    path: {{ printf "kubernetes/apps/%s" $app.name }}
+    directory:
+      recurse: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{ $app.namespace }}
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+{{- end }}

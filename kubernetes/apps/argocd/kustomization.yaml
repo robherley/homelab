@@ -1,0 +1,19 @@
+namespace: argocd
+
+resources:
+- https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+- ingress-route.yaml
+
+configMapGenerator:
+# https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/
+- name: argocd-cm
+  behavior: merge
+  literals:
+  - url="https://argocd.k3s.lab.reb.gg"
+  - users.anonymous.enabled="false"
+  - statusbadge.enabled="true"
+# https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#traefik-v22
+- name: argocd-cmd-params-cm
+  behavior: merge
+  literals:
+  - server.insecure="true" # proxy will terminate tls

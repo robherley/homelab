@@ -1,0 +1,5 @@
+repo: github.com/robherley/homelab.git
+
+apps:
+  - name: argocd
+    namespace: argocd

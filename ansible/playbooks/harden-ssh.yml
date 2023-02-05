@@ -6,6 +6,7 @@
     - proxmox_all_running
   tasks:
     - name: assert non-root user
+      when: "'proxmox' not in group_names"
       assert:
         that:
           - ansible_user != "root"

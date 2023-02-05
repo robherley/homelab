@@ -32,7 +32,7 @@
         validate: 'visudo -cf %s'
       with_items: "{{ users }}"
     - name: add keys from github
-      authorized_key:
+      ansible.posix.authorized_key:
         key: "https://github.com/{{ item.github }}.keys"
         user: "{{ item.name }}"
       with_items: "{{ users }}"

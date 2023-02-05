@@ -73,6 +73,8 @@ argocd app create inventory \
   --plaintext
 ```
 
+⚠️ don't to adjust pihole's dnsmasq config to resolve *.k3s.lab.reb.gg within lab network ya ding dong
+
 ### app of apps
 
 this subdirectory is monitored by ArgoCD and uses an [App-of-Apps](https://argo-cd.readthedocs.io/en/stable/operator-manual/cluster-bootstrapping/#app-of-apps-pattern) pattern.

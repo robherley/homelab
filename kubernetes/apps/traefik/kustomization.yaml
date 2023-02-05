@@ -1,4 +1,4 @@
-namespace: argocd
+namespace: kube-system
 
 resources:
 - ingress-route.yaml

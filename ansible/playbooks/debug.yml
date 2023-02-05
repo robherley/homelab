@@ -10,5 +10,3 @@
         msg: "{{ ansible_distribution }} ({{ ansible_distribution_version }}) | {{ ansible_os_family }}-based"
     - name: print ipv4
       debug: var=ansible_all_ipv4_addresses
-    - name: print stat
-      debug: var=proxmox_running

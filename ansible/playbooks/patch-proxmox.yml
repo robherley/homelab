@@ -19,4 +19,4 @@
         upgrade: 'dist'
     - name: install additional packages
       apt:
-        name: corosync-qdevice, vim, curl, wget, unattended-upgrades
+        name: corosync-qdevice, vim, curl, wget, unattended-upgrades, git

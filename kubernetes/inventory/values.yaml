@@ -5,3 +5,5 @@ apps:
     namespace: argocd
   - name: traefik
     namespace: kube-system
+  - name: cert-manager
+    namespace: cert-manager

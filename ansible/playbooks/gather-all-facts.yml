@@ -1,4 +1,4 @@
-- name: dump some debug info
+- name: get all facts
   hosts:
     - proxmox
     - pi
@@ -6,7 +6,7 @@
   gather_facts: true
   tasks:
     - setup:
-    - copy:
-        content: "{{ hostvars | to_nice_json }}"
-        dest: ./tmp/hostvars.json
-        once: true
+    - ansible.builtin.debug:
+        var: hostvars
+    - ansible.builtin.debug:
+        var: ansible_facts

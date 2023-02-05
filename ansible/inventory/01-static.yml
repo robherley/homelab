@@ -9,4 +9,4 @@ all:
         pegboard:
           ansible_host: 10.0.0.196
         piprimary:
-          ansible_host: 10.0.0.196
+          ansible_host: 10.0.0.254

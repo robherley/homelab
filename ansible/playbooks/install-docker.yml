@@ -1,6 +1,6 @@
 - name: install docker
   hosts:
-    - proxy
+    - tag_docker
   become: yes
   tasks:
     - name: install pkgs

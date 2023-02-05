@@ -14,3 +14,8 @@ password: !vault |
 strict: yes
 want_facts: yes
 want_proxmox_nodes_ansible_host: no
+
+keyed_groups:
+  - key: proxmox_tags_parsed
+    separator: "_"
+    prefix: tag

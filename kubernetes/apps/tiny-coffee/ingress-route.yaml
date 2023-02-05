@@ -1,0 +1,11 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: tiny-coffee
+spec:
+  routes:
+    - kind: Rule
+      match: Host(`tiny-coffee.k3s.lab.reb.gg`) && Host(`tiny.coffee`)
+      services:
+        - name: tiny-coffee
+          port: 80

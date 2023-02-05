@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tiny-coffee
+  labels:
+    app: tiny-coffee
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tiny-coffee
+  template:
+    metadata:
+      labels:
+        app: tiny-coffee
+    spec:
+      containers:
+      - name: tiny-coffee
+        image: ghcr.io/robherley/tiny.coffee:v0.0.2
+        ports:
+        - containerPort: 8000

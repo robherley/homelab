@@ -1,0 +1,7 @@
+namespace: tiny-coffee
+
+resources:
+- namespace.yaml
+- service.yaml
+- deployment.yaml
+- ingress-route.yaml

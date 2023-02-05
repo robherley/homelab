@@ -1,6 +1,6 @@
 apiVersion: v2
-name: root
-description: root app-of-apps
+name: inventory
+description: inventory app-of-apps
 
 # A chart can be either an 'application' or a 'library' chart.
 #

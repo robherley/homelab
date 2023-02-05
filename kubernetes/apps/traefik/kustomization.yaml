@@ -1,0 +1,4 @@
+namespace: argocd
+
+resources:
+- ingress-route.yaml

@@ -40,6 +40,8 @@ port forward:
 kubectl port-forward svc/argocd-server 8080:80
 ```
 
+bootstrap inventory:
+
 ```bash
 REPO=https://github.com/robherley/homelab.git
 
@@ -60,13 +62,13 @@ argocd repo add $REPO \
   --insecure \
   --plaintext
 
-argocd app create root \
+argocd app create inventory \
   --port-forward \
   --port-forward-namespace argocd \
   --dest-namespace argocd \
   --dest-server https://kubernetes.default.svc \
   --repo $REPO \
-  --path kubernetes/root \
+  --path kubernetes/inventory \
   --insecure \
   --plaintext
 ```

@@ -3,3 +3,5 @@ repo: https://github.com/robherley/homelab.git
 apps:
   - name: argocd
     namespace: argocd
+  - name: traefik
+    namespace: kube-system

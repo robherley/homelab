@@ -4,9 +4,6 @@ metadata:
   name: argocd-server
   namespace: argocd
 spec:
-  entryPoints:
-    - websecure
-    - web
   routes:
     - kind: Rule
       match: Host(`argocd.k3s.lab.reb.gg`)

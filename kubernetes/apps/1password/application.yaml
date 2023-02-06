@@ -8,6 +8,7 @@ spec:
   source:
     chart: 1password/connect
     repoURL: https://1password.github.io/connect-helm-charts/
+    targetRevision: 1.10.0
     helm:
       releaseName: 1password-connect
   destination:

@@ -1,0 +1,7 @@
+namespace: reb-bot
+
+# TODO: add redis
+resources:
+- namespace.yaml
+- 1pass-secret.yaml
+- deployment.yaml

@@ -92,3 +92,17 @@ apps:
 + - name: plex
 +   namespace: media
 ```
+
+## 1password operator
+
+before the 1password operator can be installed, there must be two secrets in the target namespace:
+
+```bash
+# credentials json
+cat 1password-credentials.json | base64 | \
+  tr '/+' '_-' | tr -d '=' | tr -d '\n' > scrubbed-creds
+kubectl create secret generic op-credentials --from-file=1password-credentials.json=scrubbed-creds
+
+# access token
+kubectl create secret generic onepassword-token --from-literal=token=<token>
+```

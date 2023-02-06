@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reb-bot
+  labels:
+    app: reb-bot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reb-bot
+  template:
+    metadata:
+      labels:
+        app: reb-bot
+    spec:
+      containers:
+      - name: reb-bot
+        image: ghcr.io/robherley/reb-bot:v1.3.0
+        envFrom:
+          - secretRef:
+              name: reb-bot-env

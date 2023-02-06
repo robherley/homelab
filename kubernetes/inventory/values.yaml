@@ -9,3 +9,5 @@ apps:
     namespace: tiny-coffee
   - name: 1password
     namespace: 1password
+  - name: reb-bot
+    namespace: reb-bot

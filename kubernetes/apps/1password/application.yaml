@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    chart: 1password/connect
+    chart: connect
     repoURL: https://1password.github.io/connect-helm-charts/
     targetRevision: 1.10.0
     helm:

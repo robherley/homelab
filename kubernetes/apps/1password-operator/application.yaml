@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: 1password-operator
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: 1password/connect
+    repoURL: https://1password.github.io/connect-helm-charts/
+    helm:
+      releaseName: 1password-connect
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: 1password

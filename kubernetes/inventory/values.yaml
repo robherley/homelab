@@ -7,3 +7,5 @@ apps:
     namespace: kube-system
   - name: tiny-coffee
     namespace: tiny-coffee
+  - name: 1password
+    namespace: 1password

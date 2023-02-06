@@ -13,7 +13,7 @@ spec:
       releaseName: 1password-connect
       parameters:
         - name: operator.create
-          value: true
+          value: 'true'
   destination:
     server: "https://kubernetes.default.svc"
     namespace: 1password

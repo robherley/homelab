@@ -1,4 +1,4 @@
-namespace: tiny-coffee
+namespace: choochoo
 
 resources:
 - namespace.yaml

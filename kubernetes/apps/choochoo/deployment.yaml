@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: choochoo
+  labels:
+    app: choochoo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: choochoo
+  template:
+    metadata:
+      labels:
+        app: choochoo
+    spec:
+      containers:
+      - name: choochoo
+        image: ghcr.io/robherley/choochoo:v0.0.1
+        ports:
+        - containerPort: 80

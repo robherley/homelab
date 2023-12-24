@@ -11,3 +11,5 @@ apps:
     namespace: 1password
   - name: reb-bot
     namespace: reb-bot
+  - name: choochoo
+    namespace: choochoo

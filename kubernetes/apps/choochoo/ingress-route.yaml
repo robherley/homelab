@@ -1,11 +1,11 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: tiny-coffee
+  name: choochoo
 spec:
   routes:
     - kind: Rule
       match: Host(`train.reb.gg`)
       services:
-        - name: tiny-coffee
+        - name: choochoo
           port: 80

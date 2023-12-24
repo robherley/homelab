@@ -1,0 +1,6 @@
+namespace: media
+
+resources:
+- namespace.yaml
+- volume.yaml
+- plex.yaml

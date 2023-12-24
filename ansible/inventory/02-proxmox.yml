@@ -1,4 +1,3 @@
-# https://docs.ansible.com/ansible/latest/collections/community/general/proxmox_inventory.html
 plugin: community.general.proxmox
 
 url: https://r720.lab.reb.gg:8006
@@ -19,3 +18,4 @@ keyed_groups:
   - key: proxmox_tags_parsed
     separator: "_"
     prefix: tag
+    default_value: none

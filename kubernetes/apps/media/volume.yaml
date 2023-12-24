@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: wolves-nfs
+spec:
+  capacity:
+    storage: 1Ti
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: r720.lab.reb.gg
+    path: "/mnt/wolves"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: wolves
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: ""
+  resources:
+    requests:
+      storage: 1Ti
+  volumeName: wolves-nfs

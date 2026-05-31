@@ -2,11 +2,7 @@ all:
   children:
     proxmox:
       hosts:
-        r720:
+        r7920.lab.reb.gg:
           ansible_user: 'root'
-    pi:
-      hosts:
-        pegboard:
-          ansible_host: 10.0.0.196
-        piprimary:
-          ansible_host: 10.0.0.254
+        zimaboard.lab.reb.gg:
+          ansible_user: 'root'

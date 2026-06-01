@@ -1,0 +1,50 @@
+#cloud-config
+autoinstall:
+  version: 1
+  locale: en_US.UTF-8
+  keyboard:
+    layout: us
+
+  ssh:
+    install-server: true
+    allow-pw: false
+
+  packages:
+    - qemu-guest-agent
+    - sudo
+    - ssh-import-id
+    - unattended-upgrades
+    - ufw
+    - fail2ban
+    - curl
+    - vim
+
+  storage:
+    layout:
+      name: lvm
+
+  # Declarative cloud-init for the installed system: the image user (groups,
+  # sudo, shell, password, GitHub keys), ssh hardening, timezone, and automatic
+  # security updates. Runs on first boot and is re-applied on each clone.
+  user-data:
+    hostname: ${hostname}
+    timezone: Etc/UTC
+    users:
+      - name: ${username}
+        groups: [sudo]
+        shell: /bin/bash
+        sudo: "ALL=(ALL) NOPASSWD:ALL"
+        lock_passwd: false
+        passwd: "${password_hash}"
+        ssh_import_id:
+          - gh:robherley
+    write_files:
+      - path: /etc/ssh/sshd_config.d/10-hardening.conf
+        content: |
+          PasswordAuthentication no
+          PermitRootLogin no
+          KbdInteractiveAuthentication no
+      - path: /etc/apt/apt.conf.d/20auto-upgrades
+        content: |
+          APT::Periodic::Update-Package-Lists "1";
+          APT::Periodic::Unattended-Upgrade "1";

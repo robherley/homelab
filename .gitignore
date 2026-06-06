@@ -90,3 +90,4 @@ terraform.rc
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/terraform,ansible,visualstudiocode,macos
+.vercel

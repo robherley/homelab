@@ -1,0 +1,52 @@
+#cloud-config
+# Delivered as cloud-init VENDOR-data via the template's cicustom. Proxmox still
+# generates the user-data (per-clone hostname/network), and this layers on top.
+# Uses the singular `user:` to override the image's default user (so the hostname
+# from Proxmox's user-data is preserved). Filled by Terraform from 1Password.
+timezone: Etc/UTC
+
+package_update: true
+package_upgrade: true
+packages:
+  - qemu-guest-agent
+  - sudo
+  - ssh-import-id
+  - unattended-upgrades
+  - ufw
+  - fail2ban
+  - curl
+  - vim
+
+user:
+  name: ${img_username}
+  groups: [sudo]
+  shell: /bin/bash
+  sudo: "ALL=(ALL) NOPASSWD:ALL"
+  lock_passwd: false
+  passwd: "${img_password_hash}"
+
+# Top-level (not nested under `user:`) — this is the reliable form, and matches
+# the working jammy template. Imports into the default user (img_username).
+ssh_import_id:
+  - gh:robherley
+
+write_files:
+  - path: /etc/ssh/sshd_config.d/10-hardening.conf
+    content: |
+      PasswordAuthentication no
+      PermitRootLogin no
+      KbdInteractiveAuthentication no
+  - path: /etc/apt/apt.conf.d/20auto-upgrades
+    content: |
+      APT::Periodic::Update-Package-Lists "1";
+      APT::Periodic::Unattended-Upgrade "1";
+
+runcmd:
+  # host firewall: deny inbound except ssh
+  - [ ufw, default, deny, incoming ]
+  - [ ufw, default, allow, outgoing ]
+  - [ ufw, allow, 22/tcp ]
+  - [ ufw, --force, enable ]
+  # slim: drop snapd
+  - [ apt-get, -y, purge, snapd ]
+  - [ apt-get, -y, autoremove, --purge ]

@@ -1,7 +1,13 @@
 all:
   children:
+    pi:
+      hosts:
+        matrix.lab.reb.gg:
+          ansible_user: 'rob'
     proxmox:
       hosts:
+        r740.lab.reb.gg:
+          ansible_user: 'root'
         r7920.lab.reb.gg:
           ansible_user: 'root'
         zimaboard.lab.reb.gg:

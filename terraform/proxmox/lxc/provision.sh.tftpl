@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+export DEBIAN_FRONTEND=noninteractive
+
+# wait for DHCP/DNS
+for _ in $(seq 60); do getent hosts archive.ubuntu.com >/dev/null && break; sleep 2; done
+
+ln -sf /usr/share/zoneinfo/Etc/UTC /etc/localtime
+echo Etc/UTC > /etc/timezone
+
+apt-get update
+apt-get -y full-upgrade
+apt-get -y install \
+  openssh-server sudo ssh-import-id unattended-upgrades ufw fail2ban curl vim
+
+id ${img_username} >/dev/null 2>&1 || useradd -m -s /bin/bash ${img_username}
+usermod -aG sudo ${img_username}
+echo "${img_username} ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/90-${img_username}
+chmod 0440 /etc/sudoers.d/90-${img_username}
+sudo -H -u ${img_username} ssh-import-id gh:robherley
+
+cat > /etc/ssh/sshd_config.d/10-hardening.conf <<'EOF'
+PasswordAuthentication no
+PermitRootLogin no
+KbdInteractiveAuthentication no
+EOF
+
+cat > /etc/apt/apt.conf.d/20auto-upgrades <<'EOF'
+APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Unattended-Upgrade "1";
+EOF
+
+# host firewall: deny inbound except ssh
+ufw default deny incoming
+ufw default allow outgoing
+ufw allow 22/tcp
+ufw --force enable
+
+# Per-clone identity: `pct clone` copies the rootfs as-is, so drop the SSH host
+# keys (regenerated on first boot by the unit below) and machine-id (otherwise
+# every clone gets the same DHCP lease).
+cat > /etc/systemd/system/ssh-host-keys.service <<'EOF'
+[Unit]
+Description=Generate missing SSH host keys
+ConditionPathExistsGlob=!/etc/ssh/ssh_host_*_key
+Before=ssh.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/ssh-keygen -A
+
+[Install]
+WantedBy=multi-user.target ssh.service
+EOF
+systemctl enable ssh-host-keys.service
+
+apt-get -y autoremove --purge
+apt-get clean
+rm -rf /var/lib/apt/lists/*
+rm -f /etc/ssh/ssh_host_*
+truncate -s 0 /etc/machine-id
+rm -f /var/lib/dbus/machine-id

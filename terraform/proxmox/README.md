@@ -15,6 +15,8 @@ versions.tf                       # TFC backend + bpg provider
 providers.tf                      # API via env, SSH (private key) for snippet upload
 variables.tf                      # node, datastore, vmid, image-user creds
 main.tf                           # download image → upload snippet → template
+lxc.tf                            # LXC: download CT template → build container → bake → template
+lxc/provision.sh.tftpl            # LXC bake script (LXC equivalent of the vendor-data)
 cloud-init/vendor-data.yaml.tftpl # cicustom vendor-data (so Proxmox keeps per-clone hostname)
 ```
 
@@ -49,9 +51,23 @@ Terraform Cloud `reb-labs/proxmox` workspace (Local execution).
 
 ## Clone the template
 
-`qm clone 9000 <newid> --name myvm`, then set per-VM cloud-init (hostname/IP/keys).
+`qm clone 9000 <newid> --name myvm --full`, then set per-VM cloud-init (hostname/IP/keys).
+Always use `--full`: without it, cloning a template makes a *linked* clone that
+depends on the template's base disk, which then blocks Terraform from replacing
+the template on the next image rebuild.
 The snippet config (user, keys, hardening, ufw, snapd removal, upgrade) applies on
 first boot.
+
+## LXC template (`ubuntu-2604-lxc`, VMID 8000)
+
+Proxmox doesn't run cloud-init for containers, so the config is **baked in** instead
+of applied at first boot: Terraform creates an unprivileged container (2 cores,
+4 GB RAM) from the stock `ubuntu-26.04-standard` template, runs
+`lxc/provision.sh.tftpl` in it via `pct exec` over root SSH, sets the password,
+then `pct stop` + `pct template`. SSH host keys and machine-id are scrubbed so
+each clone gets its own. Editing the script (or the password hash) rebuilds it.
+
+Clone: `pct clone 8000 <newid> --hostname myct --full`, then `pct start <newid>`.
 
 ## Notes
 
@@ -59,6 +75,7 @@ first boot.
   state — keep the workspace private; consider TFC's state encryption.
 - Config applies at **first boot** (cloud-init), not baked into the disk. True disk
   baking would need `virt-customize`; this matches the lightweight model.
-- New release / point release: bump the `url` + `checksum` in `main.tf`, re-apply.
+- New release / point release: bump the dated `release-YYYYMMDD` `url` + `checksum`
+  in `main.tf`, re-apply. (Pinned so upstream refreshes don't cause drift.)
 
 [`bpg/proxmox`]: https://registry.terraform.io/providers/bpg/proxmox/latest/docs

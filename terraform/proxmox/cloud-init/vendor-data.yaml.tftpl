@@ -16,6 +16,8 @@ packages:
   - fail2ban
   - curl
   - vim
+  - docker.io
+  - docker-compose-v2
 
 user:
   name: ${img_username}
@@ -42,6 +44,8 @@ write_files:
       APT::Periodic::Unattended-Upgrade "1";
 
 runcmd:
+  # docker without sudo (group only exists after the package install)
+  - [ usermod, -aG, docker, "${img_username}" ]
   # host firewall: deny inbound except ssh
   - [ ufw, default, deny, incoming ]
   - [ ufw, default, allow, outgoing ]

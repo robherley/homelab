@@ -5,9 +5,9 @@ resource "proxmox_download_file" "ubuntu_2604" {
   content_type       = "import"
   datastore_id       = var.datastore
   node_name          = var.proxmox_node
-  url                = "https://cloud-images.ubuntu.com/releases/26.04/release/ubuntu-26.04-server-cloudimg-amd64.img"
+  url                = "https://cloud-images.ubuntu.com/releases/26.04/release-20260927/ubuntu-26.04-server-cloudimg-amd64.img"
   file_name          = "ubuntu-26.04-cloudimg.qcow2" # import content rejects .img; the image is qcow2
-  checksum           = "dced94c031cc1f23dee14419a3723a5b110df9938de0ac31913a2bfd07c755b4"
+  checksum           = "8800651811af9a85465ad1d552add729947bb16488dddb4a9b5305a3d97332b2"
   checksum_algorithm = "sha256"
 }
 
@@ -45,7 +45,7 @@ resource "proxmox_virtual_environment_vm" "ubuntu_2604" {
   }
   memory { dedicated = 8192 }
   operating_system { type = "l26" }
-  scsi_hardware  = "virtio-scsi-single"
+  scsi_hardware = "virtio-scsi-single"
   serial_device {}
 
   network_device { bridge = "vmbr0" }

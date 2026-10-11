@@ -13,9 +13,20 @@ variable "template_vmid" {
   default = 9000
 }
 
+variable "lxc_template_vmid" {
+  type    = number
+  default = 8000
+}
+
 variable "disk_size" {
   type    = number
   default = 16 # GB
+}
+
+# Reachable host for the node (provider SSH + the LXC bake's `pct` commands).
+variable "proxmox_ssh_host" {
+  type    = string
+  default = "r7920.lab.reb.gg"
 }
 
 # Private key for root@<node> — the snippet upload uses SSH, and the provider

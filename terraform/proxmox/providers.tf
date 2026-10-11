@@ -15,7 +15,7 @@ provider "proxmox" {
 
     node {
       name    = var.proxmox_node
-      address = "r7920.lab.reb.gg"
+      address = var.proxmox_ssh_host
     }
   }
 }
